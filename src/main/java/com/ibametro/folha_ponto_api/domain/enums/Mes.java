@@ -20,4 +20,13 @@ public enum Mes {
     DEZEMBRO("Dezembro");
 
     private final String mesRef;
+
+    public static int getMesIndex(String mesRef) {
+        for (Mes mes : values()) {
+            if (mes.getMesRef().equalsIgnoreCase(mesRef)) {
+                return mes.ordinal() + 1;
+            }
+        }
+        throw new IllegalArgumentException("Mês inválido: " + mesRef);
+    }
 }
