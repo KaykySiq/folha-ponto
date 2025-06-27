@@ -1,4 +1,4 @@
-package com.ibametro.folha_ponto.domain;
+package com.ibametro.folha_ponto_api.domain;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

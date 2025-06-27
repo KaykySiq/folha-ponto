@@ -1,4 +1,4 @@
-package com.ibametro.folha_ponto;
+package com.ibametro.folha_ponto_api;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

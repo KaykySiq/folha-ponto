@@ -1,11 +1,12 @@
-package com.ibametro.folha_ponto.services;
+package com.ibametro.folha_ponto_api.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.ibametro.folha_ponto.domain.Funcionario;
-import com.ibametro.folha_ponto.domain.repositories.FuncionarioRepository;
+import com.ibametro.folha_ponto_api.domain.Funcionario;
+import com.ibametro.folha_ponto_api.domain.repositories.FuncionarioRepository;
 
 @Service
 public class FuncionarioService {
@@ -51,6 +52,10 @@ public class FuncionarioService {
         funcionario.setEmployeeId(employeeId);
 
         funcionarioRepository.save(funcionario);
+    }
+
+    public List<Funcionario> getFuncionarios() {
+        return funcionarioRepository.findAll();
     }
 
 }
