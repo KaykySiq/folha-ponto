@@ -3,6 +3,10 @@ package com.ibametro.folha_ponto_api.controller;
 import com.ibametro.folha_ponto_api.services.FormService;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,7 +26,7 @@ public class FormController {
     }
 
     @PostMapping("/editar")
-    public ResponseEntity<String> editarArquivoExcel(
+    public ResponseEntity<Resource> editarArquivoExcel(
             @RequestParam("file") MultipartFile file,
             @RequestParam("nome") String nome,
             @RequestParam("matricula") String matricula,
@@ -33,18 +37,19 @@ public class FormController {
             InputStream inputStream = file.getInputStream();
             Workbook workbook = WorkbookFactory.create(inputStream);
 
-            File tempFile = File.createTempFile("folha_editada_", ".xls");
+            File tempFile = File.createTempFile("FOLHA_PONTO_" + nome, ".xls");
             formService.saveChanges(tempFile, workbook, nome, matricula, mes, ano);
 
-            if (Desktop.isDesktopSupported()) {
-                Desktop.getDesktop().open(tempFile);
-            }
+            Resource resource = new FileSystemResource(tempFile);
 
-            return ResponseEntity.ok("Arquivo editado e aberto com sucesso!");
+            return ResponseEntity.ok()
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=folha_editada.xls")
+                    .contentType(MediaType.parseMediaType("application/vnd.ms-excel"))
+                    .body(resource);
 
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseEntity.badRequest().body("Erro ao processar o arquivo: " + e.getMessage());
+            return ResponseEntity.badRequest().build();
         }
     }
 }
