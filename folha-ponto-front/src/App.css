@@ -1,0 +1,82 @@
+#root {
+  max-width: 450px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+  background-color: rgb(255, 255, 255);
+  color: rgb(8, 8, 8);
+}
+
+div {
+  width: 100%;
+}
+
+.tela-inicial-container {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  background: #fff;
+}
+
+.tela-inicial-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  padding: 32px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px 0 rgba(0,0,0,0.08);
+  background-color: #f0f0f0;
+  min-width: 340px;
+  margin-bottom: 24px;
+}
+
+.tela-inicial-form label {
+  font-weight: 500;
+}
+
+.tela-inicial-form input[type="text"],
+.tela-inicial-form input[type="file"],
+.tela-inicial-form input[type="number"] {
+  width: 100%;
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  color: #000;
+  margin-top: 4px;
+  background: #fff;
+  box-sizing: border-box;
+}
+
+.tela-inicial-form button {
+  margin-top: 8px;
+  padding: 12px 24px;
+  border-radius: 6px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.tela-inicial-form .btn-editar {
+  background: #b71c1c;
+  color: #fff;
+}
+
+.tela-inicial-form .btn-funcionarios {
+  background: #263238;
+  color: #fff;
+}
+
+.tela-inicial-form .btn-download {
+  background: #388e3c;
+  color: #fff;
+}
+
+.btns {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
