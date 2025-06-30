@@ -122,5 +122,15 @@ public class FormService {
             Cell dayCell = row.getCell(0, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
             dayCell.setCellValue(day);
         }
+
+        // Limpa as linhas excedentes após o último dia do mês
+        for (int i = daysInMonth + 1; i <= 31; i++) {
+            Row row = sheet.getRow(startRow + i - 1);
+            if (row == null) continue;
+            for (int col = 0; col <= 7; col++) {
+                Cell cell = row.getCell(col, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
+                cell.setBlank();
+            }
+        }
     }
 }
