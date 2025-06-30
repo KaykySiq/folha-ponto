@@ -11,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.awt.*;
 import java.io.File;
 import java.io.InputStream;
 
@@ -28,17 +27,17 @@ public class FormController {
     @PostMapping("/editar")
     public ResponseEntity<Resource> editarArquivoExcel(
             @RequestParam("file") MultipartFile file,
-            @RequestParam("nome") String nome,
-            @RequestParam("matricula") String matricula,
-            @RequestParam("mes") String mes,
-            @RequestParam("ano") int ano
+            @RequestParam("name") String name,
+            @RequestParam("employeeId") String employeeId,
+            @RequestParam("month") String month,
+            @RequestParam("year") int year
     ) {
         try {
             InputStream inputStream = file.getInputStream();
             Workbook workbook = WorkbookFactory.create(inputStream);
 
-            File tempFile = File.createTempFile("FOLHA_PONTO_" + nome, ".xls");
-            formService.saveChanges(tempFile, workbook, nome, matricula, mes, ano);
+            File tempFile = File.createTempFile("FOLHA_PONTO", ".xls");
+            formService.saveChanges(tempFile, workbook, name, employeeId, month, year);
 
             Resource resource = new FileSystemResource(tempFile);
 
