@@ -88,6 +88,7 @@ public class FormService {
 
         List<Integer> holidays = holidayService.getHolidays(year, month);
 
+        // Limpa as células de dia da semana
         int startRow = 15;
         for (int day = 1; day <= daysInMonth; day++) {
             Row row = sheet.getRow(startRow + day - 1);
@@ -95,9 +96,10 @@ public class FormService {
                 row = sheet.createRow(startRow + day - 1);
             }
 
+            // Preenche a data e verifica o dia da semana (Sábado, Domingo ou Feriado)
             LocalDate date = LocalDate.of(year, refMonth, day);
             String dayOfWeek = date.getDayOfWeek().getDisplayName(TextStyle.FULL, new Locale("pt", "BR")).toUpperCase();
-
+            
             String days = null;
             if (dayOfWeek.equals("SÁBADO")) {
                 days = "SÁBADO";
@@ -107,6 +109,7 @@ public class FormService {
                 days = "FERIADO";
             }
 
+            // Preenche a célula do dia da semana
             Cell weekDayCell = row.getCell(1, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
             if (days != null) {
                 weekDayCell.setCellValue(days);
