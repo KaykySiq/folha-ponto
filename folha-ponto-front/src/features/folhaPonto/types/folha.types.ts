@@ -1,10 +1,4 @@
 export interface Funcionario {
-  id: number;
-  name: string;
-  employeeId: string;
-}
-
-export interface FuncionarioRequest {
   name: string;
   employeeId: string;
 }
