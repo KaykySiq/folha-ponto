@@ -1,6 +1,9 @@
-import { useState } from "react";
-import { editExcelFile } from "../services/fileService";
-import logoIbametro from "../../../assets/images/logoIbametro.png";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { editExcelFile } from "../../services/fileService";
+import logoIbametro from "../../../../assets/images/logoIbametro.png";
+import { getFuncionarios, type Funcionario } from "../../services/funcionarioService";
+import { MESES_REFERENCIA } from "../../../../constants/meses";
 
 const TelaInicial = () => {
   const [name, setname] = useState("");
@@ -9,6 +12,23 @@ const TelaInicial = () => {
   const [year, setyear] = useState("");
   const [file, setFile] = useState<File | null>(null);
   const [excelBlob, setExcelBlob] = useState<Blob | null>(null);
+
+  const [funcionarios, setFuncionarios] = useState<Funcionario[]>([]);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    getFuncionarios().then(setFuncionarios);
+  }, []);
+
+  useEffect(() => {
+    const funcionarioSelecionado = funcionarios.find((f) => f.name === name);
+    if (funcionarioSelecionado) {
+      setemployeeId(funcionarioSelecionado.employeeId);
+    } else {
+      setemployeeId("");
+    }
+  }, [name, funcionarios]);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFile(e.target.files?.[0] ?? null);
@@ -35,7 +55,7 @@ const TelaInicial = () => {
   };
 
   const handleListFuncionarios = () => {
-    alert("Funcionalidade de lista de funcionários!");
+    navigate("/funcionarios");
   };
 
   return (
@@ -45,40 +65,52 @@ const TelaInicial = () => {
       <h1>Folha de Ponto</h1>
       <form className="tela-inicial-form" onSubmit={handleSubmit}>
         <div>
-          <label>name:</label>
-          <input
+          <label>Nome:</label>
+          <select
             value={name}
             onChange={(e) => setname(e.target.value)}
             required
-            type="text"
-          />
+          >
+            <option value="">Selecione um funcionário</option>
+            {funcionarios.map((funcionario) => (
+              <option key={funcionario.employeeId} value={funcionario.name}>
+                {funcionario.name}
+              </option>
+            ))}
+          </select>
         </div>
         <div>
           <label>Matrícula:</label>
           <input
             value={employeeId}
-            onChange={(e) => setemployeeId(e.target.value)}
             required
             type="text"
+            readOnly
+            style={{ background: "#d4d4d4", cursor: "not-allowed" }}
           />
         </div>
         <div>
           <label>Mês de Referência:</label>
-          <input
+          <select
             value={month}
             onChange={(e) => setmonth(e.target.value)}
             required
-            placeholder="Janeiro"
-            type="text"
-          />
+          >
+            <option value="">Selecione um mês</option>
+            {MESES_REFERENCIA.map((mes) => (
+              <option key={mes.value} value={mes.label}>
+                {mes.label}
+              </option>
+            ))}
+          </select>
         </div>
         <div>
-          <label>year de Referência:</label>
+          <label>Ano de Referência:</label>
           <input
             value={year}
             onChange={(e) => setyear(e.target.value)}
             required
-            placeholder="2025"
+            placeholder="Ex: 2025"
             type="text"
           />
         </div>
@@ -96,16 +128,15 @@ const TelaInicial = () => {
             Gerar Folha de Ponto
           </button>
           {excelBlob && (
-          <button
-            type="button"
-            className="btn-download"
-          onClick={handleDownload}
-          >
-            Download
-          </button>
+            <button
+              type="button"
+              className="btn-download"
+              onClick={handleDownload}
+            >
+              Download
+            </button>
           )}
         </div>
-
       </form>
       <button type="button" className="btn-funcionarios" onClick={handleListFuncionarios}>
         Lista de Funcionários
