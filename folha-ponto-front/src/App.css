@@ -36,6 +36,8 @@
 }
 
 .tela-inicial-form label {
+  display: block;
+  text-align: left;
   font-weight: 500;
 }
 

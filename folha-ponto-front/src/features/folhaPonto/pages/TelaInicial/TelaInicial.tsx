@@ -42,8 +42,13 @@ const TelaInicial = () => {
     setExcelBlob(blob);
   };
 
+  const [isDownloading, setIsDownloading] = useState(false);
+
   const handleDownload = () => {
     if (!excelBlob) return;
+
+    setIsDownloading(true);
+
     const url = window.URL.createObjectURL(excelBlob);
     const a = document.createElement("a");
     a.href = url;
@@ -52,6 +57,11 @@ const TelaInicial = () => {
     a.click();
     a.remove();
     window.URL.revokeObjectURL(url);
+
+    setTimeout(() => {
+      setIsDownloading(false);
+      setExcelBlob(null);
+    }, 1000);
   };
 
   const handleListFuncionarios = () => {
@@ -132,8 +142,9 @@ const TelaInicial = () => {
               type="button"
               className="btn-download"
               onClick={handleDownload}
+              disabled={isDownloading}
             >
-              Download
+              {isDownloading ? "Sucesso!" : "Download"}
             </button>
           )}
         </div>

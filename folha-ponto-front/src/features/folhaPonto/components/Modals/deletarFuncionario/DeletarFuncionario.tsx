@@ -20,7 +20,7 @@ const DeletarFuncionario = ({ onClose, onFuncionarioDeletado, funcionario }: Pro
     return (
         <div className="overlay">
             <div className={`modal ${styles.deletModal}`}>
-                <h2>Confirmar Exclusão</h2>
+                <h2 className={styles.h2}>Confirmar Exclusão</h2>
                 <p>Tem certeza que deseja deletar "{funcionario.name}" da lista de funcionários?</p>
                 <div className={styles.btns}>
                     <button className={styles.btnDel} onClick={handleDelete}>Deletar</button>
