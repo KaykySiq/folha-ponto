@@ -12,6 +12,28 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: #fff;
+  border-radius: 12px;
+  padding: 40px 32px 32px 32px;
+  box-shadow: 0 0 24px 0 rgba(0,0,0,0.18);
+  min-width: 320px;
+  text-align: center;
+  position: relative;
+}
 
 a {
   font-weight: 500;
@@ -46,12 +68,20 @@ button {
   cursor: pointer;
   transition: border-color 0.25s;
 }
-button:hover {
-  border-color: #646cff;
+.closeBtn {
+  margin-top: 24px;
+  padding: 10px 24px;
+  border-radius: 6px;
+  border: none;
+  background: #b71c1c;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
 }
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+
+.closeBtn:hover {
+  background: #8a1616;
 }
 
 @media (prefers-color-scheme: light) {
