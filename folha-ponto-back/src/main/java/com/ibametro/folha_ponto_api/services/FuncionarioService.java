@@ -23,8 +23,8 @@ public class FuncionarioService {
         }
 
         Funcionario funcionario = new Funcionario();
-        funcionario.setName(name);
-        funcionario.setEmployeeId(employeeId);
+        funcionario.setName(name.toUpperCase());
+        funcionario.setEmployeeId(employeeId.toUpperCase());
 
         funcionarioRepository.save(funcionario);
     }
