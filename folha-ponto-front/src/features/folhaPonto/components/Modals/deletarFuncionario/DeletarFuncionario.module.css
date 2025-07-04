@@ -1,0 +1,20 @@
+.deletModal {
+    max-width: 400px;
+}
+
+h2 {
+    color: rgb(223, 10, 10);
+}
+
+.btns {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.btnDel {
+    transition: background 0.3s;
+}
+
+.btnDel:hover {
+    background: #c90000;
+}

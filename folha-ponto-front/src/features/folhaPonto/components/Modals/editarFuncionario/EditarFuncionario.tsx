@@ -46,7 +46,7 @@ const EditarFuncionario = ({ onClose, onFuncionarioEditado, funcionario }: Props
                     <button className={styles.btnSalvar} type="submit">Salvar</button>
                 </form>
 
-                <button className={styles.closeBtn} onClick={onClose}>Fechar</button>
+                <button className="closeBtn" onClick={onClose}>Fechar</button>
             </div>
         </div>
     );

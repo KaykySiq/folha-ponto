@@ -17,3 +17,8 @@ export const updateFuncionario = async (funcionario: Funcionario): Promise<Funci
   const response = await axios.put<Funcionario> (`http://localhost:8080/funcionarios/${funcionario.id}/atualizar`, funcionario);
   return response.data;
 }
+
+export const deleteFuncionario = async (id: number): Promise<void> => {
+  await axios.delete<Funcionario> (`http://localhost:8080/funcionarios/${id}`);
+
+}

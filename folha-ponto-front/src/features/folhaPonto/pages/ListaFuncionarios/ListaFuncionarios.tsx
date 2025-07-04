@@ -4,11 +4,15 @@ import styles from "./ListaFuncionarios.module.css";
 import { getFuncionarios, type Funcionario } from "../../services/funcionarioService";
 import CadastrarFuncionario from "../../components/Modals/cadastrarFuncionario/CadastrarFuncionario";
 import EditarFuncionario from "../../components/Modals/editarFuncionario/EditarFuncionario";
+import DeletarFuncionario from "../../components/Modals/deletarFuncionario/DeletarFuncionario";
+import excluir from "../../../../assets/icons/excluir.png"
+import editar from "../../../../assets/icons/editar.png"
 
 const ListaFuncionarios = () => {
   const [funcionarios, setFuncionarios] = useState<Funcionario[]>([]);
   const [showModal, setShowModal] = useState(false);
   const [funcionarioEdit, setFuncionarioEdit] = useState<Funcionario | null>(null);
+  const [funcionarioDelete, setFuncionarioDelete] = useState<Funcionario | null>(null);
 
   const carregarFuncionarios = async () => {
     const lista = await getFuncionarios();
@@ -22,6 +26,10 @@ const ListaFuncionarios = () => {
   const handleEditar = (funcionario: Funcionario) => {
     setFuncionarioEdit(funcionario);
     setShowModal(true);
+  };
+
+  const handleDeletar = (funcionario: Funcionario) => {
+    setFuncionarioDelete(funcionario);
   };
 
   return (
@@ -61,9 +69,14 @@ const ListaFuncionarios = () => {
                   type="button"
                   onClick={() => handleEditar(f)}
                 >
-                  Editar
+                  <img src={editar} alt="Editar" className={styles.icon} />
                 </button>
-                <button className={styles.delBtn} type="button">Deletar</button>
+                <button 
+                  className={styles.delBtn} 
+                  type="button" 
+                  onClick={() => handleDeletar(f)}>
+                    <img src={excluir} alt="Excluir" className={styles.icon} />
+                </button>
               </td>
             </tr>
           ))}
@@ -85,6 +98,17 @@ const ListaFuncionarios = () => {
           }}
           onFuncionarioEditado={carregarFuncionarios}
           funcionario={funcionarioEdit}
+        />
+      )}
+
+      {funcionarioDelete && (
+        <DeletarFuncionario
+          onClose={() => setFuncionarioDelete(null)}
+          onFuncionarioDeletado={() => {
+            setFuncionarioDelete(null);
+            carregarFuncionarios();
+          }}
+          funcionario={funcionarioDelete}
         />
       )}
     </div>

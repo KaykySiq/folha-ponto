@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styles from "./CadastrarFuncionario.module.css";
-import { createFuncionario } from "../../services/funcionarioService";
+import { createFuncionario } from "../../../services/funcionarioService";
 
 interface Props {
   onClose: () => void;
@@ -24,17 +24,17 @@ const CadastrarFuncionario = ({ onClose, onFuncionarioCadastrado }: Props) => {
     }
   }
   return (
-    <div className={styles.overlay}>
-      <div className={styles.modal}>
+    <div className="overlay">
+      <div className="modal">
         <h2>Cadastrar um novo Funcionário</h2>
         <form className={styles.formCadastro} onSubmit={handleSubmit}> 
             <div>
                 <label>Nome do Funcionário:</label>
-                <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
+                <input type="text" value={name} onChange={(e) => setName(e.target.value.toUpperCase())} />
             </div>
             <div>
                 <label>Matrícula: </label>
-                <input type="text" value={employeeId} onChange={(e) => setEmployeeId(e.target.value)} />
+                <input type="text" value={employeeId} onChange={(e) => setEmployeeId(e.target.value.toUpperCase())} />
             </div>
             <button className={styles.btnCadastrar} type="submit">Cadastrar</button>
         </form>
